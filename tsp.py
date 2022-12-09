@@ -6,12 +6,13 @@ import networkx as nx
 import numpy as np
 
 from sls import sls
+from bnb import bnb
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('input_file', type=str)
   parser.add_argument('-s', help='sls algorithm', action='store_true')
-  
+
   # parse args to find file
   args = parser.parse_args()
   input_path = Path(args.input_file)
@@ -37,6 +38,11 @@ if __name__ == '__main__':
 
   if args.s:
     path = sls(g)
-    print(f'Found path: {path}')
+    print(f'Found path using SLS: {path}')
+    cost = nx.path_weight(g, path, 'weight')
+    print(f'Cost: {cost}')
+  else:
+    path = bnb(g)
+    print(f'Found path using BNB: {path}')
     cost = nx.path_weight(g, path, 'weight')
     print(f'Cost: {cost}')

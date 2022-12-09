@@ -1,5 +1,6 @@
+from typing import List
+
 import networkx as nx
-import numpy as np
 import math
 
 def heuristic(g: nx.Graph, cur_node_idx: int, next_node_idx: int) -> float:
@@ -7,14 +8,14 @@ def heuristic(g: nx.Graph, cur_node_idx: int, next_node_idx: int) -> float:
   return cur_next_dist
 
 
-def sls(g: nx.Graph) -> 'List[node]':
+def sls(g: nx.Graph) -> List[int]:
   solution = [0]
   visited = {0}
   last_node = 0
   while len(solution) != len(g.nodes):
     min_node = None
     min_score = math.inf
-    for node in range(len(g.nodes)):
+    for node in g.nodes:
       if node in visited:
         continue
       score = heuristic(g, last_node, node)
